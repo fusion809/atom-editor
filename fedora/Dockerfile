@@ -13,4 +13,4 @@ ADD ../resources/atom.desktop.in /atom/resources/linux/atom.desktop.in
 # Install dependencies
 RUN /bin/bash -c "./atom/fedora.sh"
 
-COPY "./atom/out/rpm/atom*.rpm" .
+COPY "./atom/out/rpm/atom-1.7.4-0.1.fc23.x86_64.rpm" .

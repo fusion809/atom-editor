@@ -13,4 +13,4 @@ ADD ../resources/atom.desktop.in /atom/resources/linux/atom.desktop.in
 # Install dependencies
 RUN /bin/bash -c "./atom/debian.sh"
 
-COPY "./atom/out/atom*.deb" .
+COPY "./atom/out/atom-1.7.4-amd64.deb" .
