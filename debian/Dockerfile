@@ -2,13 +2,13 @@
 # DESCRIPTION:    Image to build Atom and create a .deb file
 
 # Base docker image
-FROM debian:latest
+FROM ubuntu:16.04
 
-ADD ../atom /atom
+ADD atom /atom
 
-ADD debian.sh /atom/fedora.sh
+ADD debian.sh /atom/debian.sh
 
-ADD ../resources/atom.desktop.in /atom/resources/linux/atom.desktop.in
+ADD atom.desktop.in /atom/resources/linux/atom.desktop.in
 
 # Install dependencies
 RUN /bin/bash -c "./atom/debian.sh"

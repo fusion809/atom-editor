@@ -1,8 +1,13 @@
 #!/bin/bash
-
-curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-apt-get install -y /
-  build-essential git libgnome-keyring-dev fakeroot nodejs
+apt-get update
+apt-get install -y curl
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+apt-get install -y build-essential \
+                   git \
+                   libgnome-keyring-dev \
+                   fakeroot \
+                   nodejs \
+                   wget
 
 cd /atom
 sed -i -e "/exception-reporting/d" \
@@ -15,7 +20,8 @@ sed -i -e "/exception-reporting/d" \
 mkdir node_modules
 
 # Download about-arch and move to its final location
-wget -cqO- https://github.com/fusion809/about/archive/v1.5.16.tar.gz | tar xz -C node_modules --transform="s/about-1.5.16/about-arch/"
+wget -c https://github.com/fusion809/about/archive/v1.5.16.tar.gz
+tar -xzf v1.5.16.tar.gz -C node_modules --transform="s/about-1.5.16/about-arch/"
 
 # patch about-arch
 cd node_modules/about-arch
