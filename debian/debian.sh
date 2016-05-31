@@ -1,18 +1,9 @@
 #!/bin/bash
 
-dnf install -y \
-    make \
-    gcc \
-    gcc-c++ \
-    glibc-devel \
-    git-core \
-    libgnome-keyring-devel \
-    rpmdevtools \
-    nodejs \
-    npm \
-    nano
+curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+apt-get install -y /
+  build-essential git libgnome-keyring-dev fakeroot nodejs
 
-npm install -g npm@1.4.28 --loglevel error
 cd /atom
 sed -i -e "/exception-reporting/d" \
        -e "/metrics/d" \
@@ -24,8 +15,7 @@ sed -i -e "/exception-reporting/d" \
 mkdir node_modules
 
 # Download about-arch and move to its final location
-curl -L https://github.com/fusion809/about/v1.5.16.tar.gz | tar xz -C node_modules
-mv node_modules/about-1.5.16 node_modules/about-arch
+wget -cqO- https://github.com/fusion809/about/archive/v1.5.16.tar.gz | tar xz -C node_modules --transform="s/about-1.5.16/about-arch/"
 
 # patch about-arch
 cd node_modules/about-arch
@@ -34,5 +24,6 @@ patch -Np1 < about-fedora.patch
 cd -
 
 # Build RPM
+cd /atom
 script/build
 script/grunt mkrpm
