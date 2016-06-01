@@ -8,7 +8,7 @@ ADD atom /atom
 
 ADD atom.desktop.in /atom/resources/linux/atom.desktop.in
 
-RUN dnf update && dnf upgrade -y
+RUN dnf update -y
 
 # Install dependencies
 RUN dnf install -y \
