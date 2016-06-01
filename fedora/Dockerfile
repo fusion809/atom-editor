@@ -47,6 +47,6 @@ RUN chmod +x /atom/script/* && cd -
 
 RUN until script/build; do :; done
 
-RUN /atom/script/grunt mkrpm
+RUN script/grunt mkrpm
 
 COPY "./atom/out/rpm/atom-1.7.4-0.1.fc23.x86_64.rpm" .
