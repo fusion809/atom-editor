@@ -6,8 +6,6 @@ FROM ubuntu:16.04
 
 ADD atom /atom
 
-ADD debian.sh /atom/debian.sh
-
 ADD atom.desktop.in /atom/resources/linux/atom.desktop.in
 
 # Install dependencies
