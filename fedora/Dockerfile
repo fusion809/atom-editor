@@ -43,9 +43,9 @@ RUN curl -L https://git.io/vrFrU > /atom/node_modules/about-arch/about-fedora.pa
 
 RUN cd /atom/node_modules/about-arch && patch -Np1 < about-fedora.patch
 
-RUN chmod +x /atom/script/{build,grunt,mkrpm}
+RUN chmod +x /atom/script/*
 
-RUN /atom/script/build
+RUN until ./atom/script/build; do :; done
 
 RUN /atom/script/grunt mkrpm
 

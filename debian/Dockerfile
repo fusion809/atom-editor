@@ -49,7 +49,7 @@ RUN cd -
 
 # Build RPM
 RUN cd /atom
-RUN script/build
+RUN until ./atom/script/build; do :; done
 RUN script/grunt mkdeb
 
 COPY "./atom/out/atom-1.7.4-amd64.deb" .
