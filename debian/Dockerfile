@@ -9,22 +9,19 @@ ADD atom /atom
 ADD atom.desktop.in /atom/resources/linux/atom.desktop.in
 
 # Install dependencies
-RUN apt-get update
-
-RUN apt-get upgrade -y
-
-RUN apt-get autoremove -y
+RUN apt-get update && apt-get upgrade -y && apt-get autoremove -y
 
 RUN apt-get install -y curl
-
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
 
 RUN apt-get install -y build-essential \
                        git \
                        libgnome-keyring-dev \
                        fakeroot \
                        nodejs \
-                       wget
+                       wget \
+                       npm
+
+RUN npm install -g npm@1.4.28 --loglevel error
 
 RUN cd /atom
 
