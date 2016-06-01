@@ -1,6 +1,6 @@
 # atom-editor
 
-This repository contains Dockerfiles, shell scripts and a desktop configuration file, together they are intended to build a custom, more Linux-applicable build of the Atom text editor. The desktop configuration file has support for the following MimeTypes:
+This repository contains Dockerfiles and a desktop configuration file, together they are intended to build a custom, more Linux-applicable build of the Atom text editor. The desktop configuration file has support for the following MimeTypes:
 
 * application/javascript
 * application/json
@@ -64,3 +64,6 @@ This repository contains Dockerfiles, shell scripts and a desktop configuration 
 * text/x-tex
 * text/x-vala
 * text/yaml
+* inode/directory
+
+The last of these is handy for those wanting to open a folder with Atom. The Dockerfile and desktop configuration file were forked from the official atom source code directory.

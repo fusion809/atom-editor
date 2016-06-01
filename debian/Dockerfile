@@ -11,6 +11,47 @@ ADD debian.sh /atom/debian.sh
 ADD atom.desktop.in /atom/resources/linux/atom.desktop.in
 
 # Install dependencies
-RUN /bin/bash -c "./atom/debian.sh"
+RUN apt-get update
+
+RUN apt-get upgrade -y
+
+RUN apt-get autoremove -y
+
+RUN apt-get install -y curl
+
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
+
+RUN apt-get install -y build-essential \
+                       git \
+                       libgnome-keyring-dev \
+                       fakeroot \
+                       nodejs \
+                       wget
+
+RUN cd /atom
+
+RUN sed -i -e "/exception-reporting/d" \
+       -e "/metrics/d" \
+       -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"0.90.3\",\n    \"language-liquid\": \"0.5.1\",/g" \
+       -e "s/\"language-shellscript\": \".*\",/\"language-shellscript\": \"0.22.3\",/g" \
+       -e "s/\"about\": \".*\"/\"about-arch\": \"1.5.16\"/g" \
+       package.json
+
+RUN mkdir node_modules
+
+# Download about-arch and move to its final location
+RUN wget -c https://github.com/fusion809/about/archive/v1.5.16.tar.gz
+RUN tar -xzf v1.5.16.tar.gz -C node_modules --transform="s/about-1.5.16/about-arch/"
+
+# patch about-arch
+RUN cd node_modules/about-arch
+RUN curl -L https://git.io/vrFNY > about-debian.patch
+RUN patch -Np1 < about-debian.patch
+RUN cd -
+
+# Build RPM
+RUN cd /atom
+RUN script/build
+RUN script/grunt mkdeb
 
 COPY "./atom/out/atom-1.7.4-amd64.deb" .
