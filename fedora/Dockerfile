@@ -51,7 +51,7 @@ RUN cd -
 
 RUN cd /atom
 
-RUN chmod +x script/{build,grunt}
+RUN chmod +x script/{build,grunt,mkrpm}
 
 RUN script/build
 
