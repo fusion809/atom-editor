@@ -3,14 +3,14 @@
 _pkgname=atom
 
 # Module Versions
-_about_arch_ver=1.5.16
-_language_gfm2_ver=0.90.3
+_about_arch_ver=1.6.2
+_language_gfm2_ver=0.92.2
 _language_liquid_ver=0.5.1
-_language_shellscript_ver=0.22.3
+_language_unix_shell_ver=0.37.5
 
 pkgname=${_pkgname}-editor
-pkgver=1.7.4
-pkgrel=4
+pkgver=1.9.2
+pkgrel=1
 pkgdesc='Hackable text editor for the 21st Century, built using web technologies.'
 arch=('x86_64' 'i686')
 url='https://github.com/atom/atom'
@@ -22,7 +22,7 @@ conflicts=('atom-editor-bin')
 install=atom.install
 source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/atom/atom/archive/v${pkgver}.tar.gz"
 "atom.desktop")
-md5sums=('0e0393c45d500636c99f5d3f078b3d4c'
+md5sums=('6fd521f739a5a540291e988fa21121c2'
          '367f71ad1cfc2e03e97a48d2e32995fb')
 
 prepare() {
@@ -32,7 +32,7 @@ prepare() {
          -e "/metrics/d" \
          -e 's/0.36.8/0.36.12/g' \
          -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"${_language_gfm2_ver}\",\n    \"language-liquid\": \"${_language_liquid_ver}\",/g" \
-         -e "s/\"language-shellscript\": \".*\",/\"language-shellscript\": \"${_language_shellscript_ver}\",/g" \
+         -e "s/\"language-shellscript\": \".*\",/\"language-unix-shell\": \"${_language_unix_shell_ver}\",/g" \
          -e "s/\"about\": \".*\"/\"about-arch\": \"${_about_arch_ver}\"/g" \
          package.json
 
