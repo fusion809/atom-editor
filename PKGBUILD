@@ -6,31 +6,33 @@ _pkgname=atom
 _about_arch_ver=1.6.2
 _language_gfm2_ver=0.92.2
 _language_liquid_ver=0.5.1
-_language_unix_shell_ver=0.37.5
+_language_unix_shell_ver=0.37.6
 
 pkgname=${_pkgname}-editor
-pkgver=1.9.5
+_pkgver=1.9.6
+pkgver=${_pkgver}.a${_about_arch_ver}.g${_language_gfm2_ver}.l${_language_liquid_ver}.u${_language_unix_shell_ver}
 pkgrel=1
 pkgdesc='Hackable text editor for the 21st Century, built using web technologies.'
 arch=('x86_64' 'i686')
 url='https://github.com/atom/atom'
 license=('MIT')
-depends=('alsa-lib' 'desktop-file-utils' 'gconf' 'gtk2' 'libgnome-keyring' 'libnotify' 'libxtst' 'nodejs' 'nss' 'python2')
+depends=('alsa-lib' 'desktop-file-utils' 'gconf' 'gtk2' 'libgnome-keyring' 'libnotify' 'libxtst' 'nodejs>=4' 'nss' 'python2')
 optdepends=('gvfs: file deletion support')
-makedepends=('git' 'npm')
+makedepends=('git' 'npm>=3.10.5')
 conflicts=('atom-editor-bin')
 install=atom.install
-source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/atom/atom/archive/v${pkgver}.tar.gz"
+source=("${_pkgname}-${_pkgver}.tar.gz::https://github.com/atom/atom/archive/v${_pkgver}.tar.gz"
+"about-arch-${_about_arch_ver}.tar.gz::https://github.com/fusion809/about/archive/v${_about_arch_ver}.tar.gz"
 "atom.desktop")
-md5sums=('bc3dd75a779ee34903f4505a6249449e'
-         '367f71ad1cfc2e03e97a48d2e32995fb')
+sha512sums=('5edb3ae358f633d6e4e8dc125670f3fddde570c32540c2ac13e21aa912c6f6feddeefb2736dd9e7b323865bd574008f25424abbe41b77f47088c032058054289'
+            'd8ca0f819f5561a0c0348d1bec57fdd0ce626db64085b60124fd04f95b467a56c96cf77aa93d22e44f562b75f12de47a9820988533fccbb3a12f69d83ef5b45a'
+            'beb160ec2fe8f917ba159ca42fca305ea2bb4c2ae5c6cfc3dd9170e17ece527ccb993cdf907467c7392221bd1f50fc2337241dadfe6895d67f55e69a15715556')
 
 prepare() {
-  cd "$srcdir/${_pkgname}-$pkgver"
+  cd "$srcdir/${_pkgname}-${_pkgver}"
 
   sed -i -e "/exception-reporting/d" \
          -e "/metrics/d" \
-         -e 's/0.36.8/0.36.12/g' \
          -e "s/\"language-gfm\": \".*\",/\"language-gfm2\": \"${_language_gfm2_ver}\",\n    \"language-liquid\": \"${_language_liquid_ver}\",/g" \
          -e "s/\"language-shellscript\": \".*\",/\"language-unix-shell\": \"${_language_unix_shell_ver}\",/g" \
          -e "s/\"about\": \".*\"/\"about-arch\": \"${_about_arch_ver}\"/g" \
@@ -42,16 +44,24 @@ prepare() {
   ./script/build || die "Fail fixing verbosity of script/build"
 
   sed -i -e "s/<%=Desc=%>/$pkgdesc/g" ${srcdir}/${_pkgname}.desktop
+
+  if ! [[ -d node_modules/about-arch ]]; then
+  	mkdir node_modules
+  else
+    rm -rf node_modules/about-arch
+  fi
+
+  mv $srcdir/about-${_about_arch_ver} node_modules/about-arch
 }
 
 build() {
-  cd "$srcdir/${_pkgname}-$pkgver"
+  cd "$srcdir/${_pkgname}-${_pkgver}"
   export PYTHON=/usr/bin/python2
   until ./script/build --build-dir "$srcdir/atom-build"; do :; done
 }
 
 package() {
-  cd "$srcdir/${_pkgname}-$pkgver"
+  cd "$srcdir/${_pkgname}-${_pkgver}"
 
   script/grunt install --build-dir "$srcdir/atom-build" --install-dir "$pkgdir/usr"
 
