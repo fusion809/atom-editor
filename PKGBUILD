@@ -9,7 +9,7 @@ _language_liquid_ver=0.5.1
 _language_unix_shell_ver=0.37.5
 
 pkgname=${_pkgname}-editor
-pkgver=1.9.2
+pkgver=1.9.5
 pkgrel=1
 pkgdesc='Hackable text editor for the 21st Century, built using web technologies.'
 arch=('x86_64' 'i686')
@@ -22,7 +22,7 @@ conflicts=('atom-editor-bin')
 install=atom.install
 source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/atom/atom/archive/v${pkgver}.tar.gz"
 "atom.desktop")
-md5sums=('6fd521f739a5a540291e988fa21121c2'
+md5sums=('bc3dd75a779ee34903f4505a6249449e'
          '367f71ad1cfc2e03e97a48d2e32995fb')
 
 prepare() {
