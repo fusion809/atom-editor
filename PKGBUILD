@@ -6,10 +6,10 @@ _pkgname=atom
 _about_arch_ver=1.6.2
 _language_gfm2_ver=0.92.2
 _language_liquid_ver=0.5.1
-_language_unix_shell_ver=0.37.6
+_language_unix_shell_ver=0.37.7
 
 pkgname=${_pkgname}-editor
-_pkgver=1.9.6
+_pkgver=1.9.9
 pkgver=${_pkgver}.a${_about_arch_ver}.g${_language_gfm2_ver}.l${_language_liquid_ver}.u${_language_unix_shell_ver}
 pkgrel=1
 pkgdesc='Hackable text editor for the 21st Century, built using web technologies.'
@@ -24,7 +24,7 @@ install=atom.install
 source=("${_pkgname}-${_pkgver}.tar.gz::https://github.com/atom/atom/archive/v${_pkgver}.tar.gz"
 "about-arch-${_about_arch_ver}.tar.gz::https://github.com/fusion809/about/archive/v${_about_arch_ver}.tar.gz"
 "atom.desktop")
-sha512sums=('5edb3ae358f633d6e4e8dc125670f3fddde570c32540c2ac13e21aa912c6f6feddeefb2736dd9e7b323865bd574008f25424abbe41b77f47088c032058054289'
+sha512sums=('813943e67b1bf7f2905b2e1c6f3beeee9f22f6faf73015e3b2cc519262d53047322c2d6fbd34e924933688c8bc80be9bbc99f1ff666a26c24eab81497bce39de'
             'd8ca0f819f5561a0c0348d1bec57fdd0ce626db64085b60124fd04f95b467a56c96cf77aa93d22e44f562b75f12de47a9820988533fccbb3a12f69d83ef5b45a'
             'beb160ec2fe8f917ba159ca42fca305ea2bb4c2ae5c6cfc3dd9170e17ece527ccb993cdf907467c7392221bd1f50fc2337241dadfe6895d67f55e69a15715556')
 
